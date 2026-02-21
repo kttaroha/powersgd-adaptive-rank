@@ -26,7 +26,7 @@ PowerSGD の適応ランク制御を用いた分散学習実験用リポジト�
 - `macvlan_run/macvlan_run.sh`: macvlan で detached コンテナを起動
 - `tests/test_rank_logic.py`: ランク決定ロジック向け pytest
 - `src/visualize/`: 結果可視化ノートブック
-- `.venv_viz/`: 可視化用 Python 仮想環境
+- `requirements_viz.txt`: 可視化用 Python 依存パッケージ
 
 ### 3. 前提条件
 - 同一 L2/L3 ネットワークで到達可能な 2 台のマシン（またはホスト）
@@ -175,11 +175,14 @@ python3 -m pytest -q tests
   - 1 iteration あたりの compute / communication / compression / decompression を比較
 
 #### 8.1 可視化用仮想環境を使う
-このリポジトリには可視化用途の仮想環境 `.venv_viz/` を同梱しています。
+可視化用にローカルで仮想環境を作成し、依存をインストールします。
 
 ```bash
 cd /workspace
+python3 -m venv .venv_viz
 source .venv_viz/bin/activate
+pip install -U pip
+pip install -r requirements_viz.txt
 python -V
 ```
 
@@ -222,7 +225,7 @@ Example configs are in `configs/yyyymmdd/` and are intended as templates.
 - `macvlan_run/macvlan_run.sh`: Starts detached Docker container with macvlan networking
 - `tests/test_rank_logic.py`: Logic-level pytest for rank decision behavior
 - `src/visualize/`: Visualization notebooks
-- `.venv_viz/`: Python virtual environment for visualization
+- `requirements_viz.txt`: Python dependencies for visualization
 
 ## 3. Prerequisites
 - Two machines (or two hosts) reachable over the same L2/L3 network
@@ -371,11 +374,14 @@ Main visualizations included in `viz_seed_average_main.ipynb`:
   - Compare per-iteration compute / communication / compression / decompression time
 
 ### 8.1 Use the visualization virtual environment
-This repository includes `.venv_viz/` for notebook-based analysis.
+Create a local virtual environment and install visualization dependencies.
 
 ```bash
 cd /workspace
+python3 -m venv .venv_viz
 source .venv_viz/bin/activate
+pip install -U pip
+pip install -r requirements_viz.txt
 python -V
 ```
 

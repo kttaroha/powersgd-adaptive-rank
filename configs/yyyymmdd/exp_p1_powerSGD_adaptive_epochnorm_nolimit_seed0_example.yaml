@@ -1,0 +1,74 @@
+save_dir: /workspace/results/yyyymmdd/exp_p1_powerSGD_adaptive_epochnorm_nolimit_seed0_example/accuracy
+results_csv: accuracy_results.csv
+benchmark_save_dir: /workspace/results/yyyymmdd/exp_p1_powerSGD_adaptive_epochnorm_nolimit_seed0_example/benchmark
+seed: 0
+model:
+  name: resnet18
+  num_classes: 100
+  pretrained: false
+dataset:
+  name: cifar100
+  batch_size: 128
+training:
+  epochs: 300
+  learning_rate: 0.2
+  momentum: 0.9
+  weight_decay: 0.0001
+  scheduler: multistep
+  warmup_epochs: 5
+  warmup_start_lr: 0.1
+  gamma: 0.1
+  nesterov: true
+  milestones:
+  - 150
+  - 250
+powerSGD:
+  use_error_feedback: true
+  min_compression_rate: 2
+  warm_start: true
+  orthogonalization_epsilon: 1e-8
+  random_seed: 42
+  compression_stats_logging_frequency: 100
+  batch_tensors_with_same_shape: false
+accordion:
+  enable: true
+  ema_beta: 0.9
+  critical_factor: 1.2
+  relaxed_factor: 0.95
+  update_interval: 100
+compression:
+  enable_powerSGD: true
+  start_power_iterations: 10
+  min_rank: 1
+  max_rank: 8
+  base_rank: 4
+  use_fixed_rank: false
+  fixed_rank_value: 4
+  calibration:
+    enable: true
+    warmup_iters: 5
+    measure_iters: 20
+    ranks:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    comm_ratio_threshold: 0.5
+    force_start_iter: 0
+    use_fixed_rank_after_calibration: false
+adaptive_training:
+  enable: false
+  stages: []
+network_limits:
+  enable: false
+  interface: eth0
+  egress_mbps: 0
+  ingress_mbps: 0
+  latency_ms: 0
+  jitter_ms: 0
+  loss_pct: 0
+  auto_cleanup: true
