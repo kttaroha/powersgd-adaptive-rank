@@ -79,10 +79,6 @@ NAME=dl-node-worker \
 docker exec -it dl-node-worker bash
 cd /workspace
 chmod +x run_all_experiments.sh
-
-MASTER_ADDR=<master_container_ip> \
-WORLD_SIZE=2 \
-NCCL_IFNAME=<nccl_interface> \
 nohup ./run_all_experiments.sh 1 > run_rank1.log 2>&1 &
 exit
 ```
@@ -92,10 +88,6 @@ exit
 docker exec -it dl-node-master bash
 cd /workspace
 chmod +x run_all_experiments.sh
-
-MASTER_ADDR=<master_container_ip> \
-WORLD_SIZE=2 \
-NCCL_IFNAME=<nccl_interface> \
 nohup ./run_all_experiments.sh 0 > run_rank0.log 2>&1 &
 exit
 ```
