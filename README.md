@@ -53,7 +53,7 @@ master/worker で `CONTAINER_IP` と `NAME` は必ず変えてください。
 docker build -t pytorch-cuda11.7 . --no-cache
 ```
 
-#### Step 2: macvlan + detached でコンテナ起動（両ノードで実行）
+#### Step 2: コンテナ起動（両ノードで実行）
 master 側（プレースホルダは置換）:
 ```bash
 PARENT_IF=<parent_interface> \
@@ -74,7 +74,7 @@ NAME=dl-node-worker \
 ./macvlan_run/macvlan_run.sh
 ```
 
-#### Step 3: 先に worker の学習プロセスを起動
+#### Step 3: worker の学習プロセスを起動
 ```bash
 docker exec -it dl-node-worker bash
 cd /workspace
